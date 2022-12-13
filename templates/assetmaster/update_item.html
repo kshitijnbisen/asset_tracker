@@ -1,0 +1,40 @@
+{% extends 'assetmaster/base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+{% block base_block %}
+<h1 align="center">Item update form</h1>
+<br>
+<div class="container" align="center">
+<form class="" method="post">
+
+<!--    AssetType asset_type_id :<input type="text" name="roll" value="{{data.asset_type_id}}">-->
+<!--    <p></p>-->
+<!--    AssetType asset_type :<input type="text" name="name" value="{{data.asset_type}}">-->
+<!--    <p></p>-->
+<!--    AssetType asset_description :<input type="text" name="address" value="{{data.asset_description}}">-->
+<!--    <p></p>-->
+<!--    AssetType created_at :<input type="text" name="email" value="{{data.created_at}}">-->
+<!--    <p></p>-->
+    {{form.as_p}}
+
+<!--    AssetType updated_at :<input type="text" name="record" value="{{data.updated_at}}">  <! –– feed again with proper formate ––>-->
+<!--    <p></p>-->
+<!--    student date :<input type="text" name="date" value="{{data.date}}"> # it is removed because its autoformate so will create problem-->
+
+
+    {%csrf_token%}
+<input type="submit" class="btn btn-success btn-lg" value="Update Record">
+</form>
+</div>
+
+{% endblock %}
+{% endblock %}
+</body>
+</html>

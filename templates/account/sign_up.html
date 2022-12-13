@@ -1,0 +1,31 @@
+{% extends 'assetmaster/base.html' %}
+{% block content %}
+    {% if messages %}
+   {% for message in messages %}
+    <p {% if message.tags %} class="alert alert-{{message.tags}} mb-5" {% endif %}>{{message}}</p>
+    {% endfor %}
+    {% endif %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Registration</title>
+</head>
+<body>
+<form action="" method="post" >
+            {% csrf_token %}
+    {% for fm in form %}
+    {{fm.label_tag}} {{fm}}
+    <br>{{fm.errors|striptags}}
+    {% endfor %}
+        <input type="submit" value="Submit" >
+        {% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+    <p class="alert alert-danger my-3">{{error}}</p>
+    {% endfor %}
+    {% endif %}
+</form>
+{% endblock %}
+</body>
+
+</html>
