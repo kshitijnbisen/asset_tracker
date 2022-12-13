@@ -35,17 +35,17 @@ pip install -r requirements.txt
 **MySQL**
 If you want to use MySQL, the following apt commands will get you the packages you need:
 
-'sudo apt-get update'
-'sudo apt-get install python-pip python-dev mysql-server libmysqlclient-dev'
-<sub>
+'''sudo apt-get update'''
+'''sudo apt-get install python-pip python-dev mysql-server libmysqlclient-dev'''
+
 You will be asked to select and confirm a password for the administrative MySQL account.
 After the installation, you can create the database directory structure by typing:
-</sub>
-'sudo mysql_install_db'
+
+'''sudo mysql_install_db'''
 
 You can then run through a simple security script by running:
 
-sudo mysql_secure_installation
+'''sudo mysql_secure_installation'''
 You’ll be asked for the administrative password you set for MySQL during installation. Afterwards, you’ll be asked a series of questions. Besides the first question which asks you to choose another administrative password, select yes for each question.
 
 ## create database-
