@@ -21,36 +21,34 @@ sqlparse==0.4.3
 
 # Installation:
 
-clone this respository first-
-https://github.com/kshitijnbisen/asset_tracker.git
+## clone this respository first-
+(https://github.com/kshitijnbisen/asset_tracker.git)
 
-create virtual environment and activate-
+## create virtual environment and activate-
 python3 -m venv venv
 source venv/bin/activate
 
-Install requirements-
+## Install requirements-
 pip install -r requirements.txt
 
-Setup Database-
-MySQL
+## Setup Database-
+**MySQL**
 If you want to use MySQL, the following apt commands will get you the packages you need:
 
-sudo apt-get update
-sudo apt-get install python-pip python-dev mysql-server libmysqlclient-dev
-
+'sudo apt-get update'
+'sudo apt-get install python-pip python-dev mysql-server libmysqlclient-dev'
+<sub>
 You will be asked to select and confirm a password for the administrative MySQL account.
 After the installation, you can create the database directory structure by typing:
-
-sudo mysql_install_db
+</sub>
+'sudo mysql_install_db'
 
 You can then run through a simple security script by running:
 
 sudo mysql_secure_installation
 You’ll be asked for the administrative password you set for MySQL during installation. Afterwards, you’ll be asked a series of questions. Besides the first question which asks you to choose another administrative password, select yes for each question.
 
-create database-
-
-Create a Database and Database User
+## create database-
 
 We can start by logging into an interactive session with our database software by typing the following (the command is the same regardless of which database software you are using):
 
@@ -75,7 +73,7 @@ Exit the SQL prompt to get back to your regular shell session:
 
 exit
 
-Configure the Django Database Settings
+## Configure the Django Database Settings
 
 Now that we have a project, we need to configure it to use the database we created.
 
