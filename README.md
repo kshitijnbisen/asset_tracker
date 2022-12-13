@@ -81,11 +81,11 @@ Now, all we need to do is give our database user access rights to the database w
 
 Flush the changes so that they will be available during the current session:  
 
-**FLUSH PRIVILEGES;**  
+**FLUSH PRIVILEGES;**    
 
 Exit the SQL prompt to get back to your regular shell session:  
 
-exit  
+**exit**  
 
 ## Configure the Django Database Settings  
 
@@ -97,35 +97,35 @@ Open the main Django project settings file located within the child project dire
 
 Towards the bottom of the file, you will see a DATABASES section that looks like this:  
 
-. . .
+**. . .  
+  
+DATABASES = {  
+    'default': {  
+        'ENGINE': 'django.db.backends.sqlite3',  
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),  
+    }  
+}  
+  
+. . .**  
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
-. . .  
-
-This is currently configured to use SQLite as a database. We need to change this so that our MySQL/MariaDB database is used instead.  
+This is currently configured to use SQLite as a database. We need to change this so that our MySQL database is used instead.  
 
 First, change the engine so that it points to the mysql backend instead of the sqlite3 backend. For the NAME, use the name of your database (myproject in our example). We also need to add login credentials. We need the username, password, and host to connect to. We’ll add and leave blank the port option so that the default is selected:  
 
-. . .
+**. . .  
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'assetdb',
-        'USER': 'myprojectuser',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
-}
-
-. . .  
+DATABASES = {  
+    'default': {  
+        'ENGINE': 'django.db.backends.mysql',  
+        'NAME': 'assetdb',  
+        'USER': 'myprojectuser',  
+        'PASSWORD': 'password',  
+        'HOST': 'localhost',  
+        'PORT': '',  
+    }  
+}  
+  
+. . .**  
 
 When you are finished, save and close the file.  
 
