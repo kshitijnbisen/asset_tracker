@@ -22,16 +22,16 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     # path('show/', views.IndexView.as_view(),name='index'),
-    path('', views.dashboardView,name='index'),
-    path('all_category/', views.assetTypeView,name='all_category'),
-    path('add_category/', views.addAssetTypeView,name='add_category'),
-    path('edit_category/<int:id>/', views.updateAssetTypeView,name='update_category'),
-    path('remove_category/<int:id>/', views.removeAssetTypeView,name='remove_category'),
-    path('all_items/', views.itemsView, name='all_items'),
-    path('add_item/', views.addItemView, name='add_item'),
-    path('update_item/<id>/', views.updateItemView, name='update_item'),
-    path('remove_item/<id>/', views.removeItemView, name='remove_item'),
-    path('pie_data/', views.pie_chart_View, name='pie_data'),
-    path('bar_data/', views.bar_chart_Data, name='bar_data'),
+    path('', views.dashboard_view, name='index'),
+    path('all_category/', views.all_assettype_view, name='all_category'),
+    path('add_category/', views.add_assettype_view, name='add_category'),
+    path('edit_category/<int:id>/', views.update_assettype_view, name='update_category'),
+    path('remove_category/<int:id>/', views.remove_assettype_view, name='remove_category'),
+    path('all_items/', views.all_items_view, name='all_items'),
+    path('add_item/', views.add_item_view, name='add_item'),
+    path('update_item/<id>/', views.update_item_view, name='update_item'),
+    path('remove_item/<id>/', views.remove_item_view, name='remove_item'),
+    path('pie_data/', views.pie_chart_view, name='pie_data'),
+    path('bar_data/', views.bar_chart_view, name='bar_data'),
     path('export_items_csv/', views.export_items_csv, name='export-csv'),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

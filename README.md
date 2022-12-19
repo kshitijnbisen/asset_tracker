@@ -77,7 +77,7 @@ Next, we will create a database user which we will use to connect to and interac
 
 Now, all we need to do is give our database user access rights to the database we created:  
 
-**GRANT ALL PRIVILEGES ON assetdb.* TO myprojectuser@localhost;**  
+**GRANT ALL PRIVILEGES ON assetdb.* TO myprojectuser@localhost;**
 
 Flush the changes so that they will be available during the current session:  
 
@@ -136,22 +136,22 @@ Now that the Django settings are configured, we can migrate our data structures 
 We can begin by creating and applying migrations to our database. Since we don’t have any actual data yet, this will simply set up the initial database structure:  
 
 **cd ~/myproject  
-python manage.py makemigrations  
-python manage.py migrate**   
+python3 manage.py makemigrations  
+python3 manage.py migrate**   
 
 After creating the database structure, we can create an administrative account by typing:  
 
-**python manage.py createsuperuser**  
+**python3 manage.py createsuperuser**  
 
 You will be asked to select a first_name,last_name provide an email address, and choose and confirm a password for the account.  
 
 Once you have an admin account set up, you can test that your database is performing correctly by starting up the Django development server:  
 
-**python manage.py runserver 0.0.0.0:8000**  
+**python3 manage.py runserver 0.0.0.0:8000**  
 
 In your web browser, visit your server’s domain name or IP address followed by :8000 to reach default Django root page:  
 
-http://server_domain_or_IP:8000  
+(http://server_domain_or_IP:8000)  
 
 You should see the default index page:  
 

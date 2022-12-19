@@ -1,58 +1,59 @@
 import datetime
-
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from .models import AssetType,Item
-from .forms import AssetTypeForm,ItemForm
+from .models import AssetType, Item
+from .forms import AssetTypeForm, ItemForm
 from django.core.paginator import Paginator
 from django.db.models import Count
-from django.http import HttpResponse,JsonResponse
+from django.http import HttpResponse, JsonResponse
 import csv
 # Create your views here.
 
 
 @login_required(redirect_field_name='login', login_url='/account/login/')
-def dashboardView(request):
+def dashboard_view(request):
+    """
+    It renders a index page
+    """
+    return render(request,'assetmaster/dashboard1.html')
 
-    pie_label = []
-    pldata = AssetType.objects.all().order_by('asset_type')
-    for asset in pldata:
-        pie_label.append(asset.asset_type)
-    pie_data = []
-    pdata = Item.objects.values('asset_type').order_by('asset_type').annotate(Count('asset_type'))
-    for asset_count in pdata:
-        pie_data.append(asset_count['asset_type__count'])
-    print(pie_label)
-    print(pie_data)
+def all_assettype_view(request):
+    """
+    This function fetch all the data from AssetType table.
 
-    bar_label = ['Active Assets','Inactive Assets']
-    bar_data = []
-    bdata = Item.objects.values('is_active').order_by().annotate(Count('item_id'))
-    for count in bdata:
-        bar_data.append(count['item_id__count'])
-    print(bar_label)
-    print(bar_data)
+    Parameters:
+    arg1 (): HttpRequest Object
 
-    data = {"bar_label": bar_label,"bar_data": bar_data,"pie_label": pie_label,"pie_data": pie_data}
-    return render(request,'assetmaster/dashboard1.html',data)
+    Returns:
+    dict: all the AssetType object
 
-def assetTypeView(request):
+    """
     assettype = AssetType.objects.all()
     context = {'assettype': assettype}
-    return render(request,'assetmaster/all_assettype.html',context)
+    return render(request, 'assetmaster/all_assettype.html', context)
 
 
-def addAssetTypeView(request):
+def add_assettype_view(request):
+    """
+    This function adds new data to  AssetType table.
 
+    Parameters:
+    arg1 (): HttpRequest Object(with asset_type(str),asset_description(str))
+
+    Returns:
+    dict: AssetType object
+    msg: 'AssetType Added Successfully!' | msg: 'Something went wrong!'
+
+    """
     form = AssetTypeForm()
     my_dict = {'form': form}
     if request.method == 'POST':
         form = AssetTypeForm(request.POST)
         if form.is_valid():
             form.save(commit=True)
-            messages.success(request, 'AssetType Added Sucessfully!')
+            messages.success(request, 'AssetType Added Successfully!')
             return redirect('/all_category')
         else:
             messages.error(request, 'Something went wrong!')
@@ -60,139 +61,205 @@ def addAssetTypeView(request):
     return render(request,'assetmaster/add_assettype.html',my_dict)
 
 
-def updateAssetTypeView(request,id):
+def update_assettype_view(request, id):
+    """
+    This data update data from AssetType table.
 
-    assettype = AssetType.objects.get(asset_type_id=id)
+    Parameters:
+    arg1 ():
+    arg2 (int): id of object
+
+    Returns:
+    msg: 'Assettype updated Sucessfully!'
+
+    """
+    assettype = AssetType.objects.get(id=id)
     if request.method == 'POST':
         form = AssetTypeForm(request.POST, instance=assettype)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Assettype updated Sucessfully!')
+            messages.success(request, 'Assettype updated Successfully!')
             return HttpResponseRedirect('/all_category')
     else:
         form = AssetTypeForm(instance=assettype)
     context = {'form': form}
-    return render(request, 'assetmaster/update_assettype.html',context )
+    return render(request, 'assetmaster/update_assettype.html', context )
 
-def removeAssetTypeView(request,id):
+def remove_assettype_view(request, id):
     """
-                                    """
-    at_to_be_removed = AssetType.objects.get(asset_type_id=id)
+    This function deletes data from AssetType table.
+
+    Parameters:
+    arg1 ():
+    arg2 (int): id of object
+
+    Returns:
+    None: None
+
+    """
+    at_to_be_removed = AssetType.objects.get(id=id)
     at_to_be_removed.delete()
     messages.success(request, 'Assettype deleted Sucessfully!')
     return redirect('/all_category')
 
 
-def itemsView(request):
+def all_items_view(request):
+    """
+    This function fetch all the data from Item table.
+
+    Parameters:
+    arg1 (): None
+
+    Returns:
+    dict: all the Items object
+
+    """
     items = Item.objects.all().order_by('-updated_at')
     paginator = Paginator(items, 2, orphans=1)
-    page_number  = request.GET.get('page')
+    page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {'page_obj': page_obj}
-    return render(request,'assetmaster/all_item.html', context)
+    return render(request, 'assetmaster/all_item.html', context)
 
 
-def addItemView(request):
+def add_item_view(request):
+    """
+    This function adds new data to  Item table.
 
+    Parameters:
+    arg1 (): asset_type(str),asset_description(str)
+
+    Returns:
+    msg: 'Item Added Successfully!'
+
+    """
     form = ItemForm()
     my_dict = {'form': form}
     if request.method == 'POST':
         form = ItemForm(request.POST)
         if form.is_valid():
             form.save(commit=True)
-            messages.success(request, 'Item Added Sucessfully!')
+            messages.success(request, 'Item Added Successfully!')
             return redirect('/all_items')
         else:
             messages.error(request, 'Something went wrong!')
-            return render(request,'assetmaster/add_item.html',my_dict)
-    return render(request,'assetmaster/add_item.html',my_dict)
+            return render(request, 'assetmaster/add_item.html', my_dict)
+    return render(request, 'assetmaster/add_item.html', my_dict)
 
-def updateItemView(request,id):
+def update_item_view(request, id):
+    """
+    This data update data from Item table.
 
+    Parameters:
+    arg1 ():
+    arg2 (int): id of object
+
+    Returns:
+    msg: 'Item updated Successfully!'
+
+    """
     item = Item.objects.get(item_id=id)
     if request.method == 'POST':
         form = ItemForm(request.POST, instance=item)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Item updated Sucessfully!')
+            messages.success(request, 'Item updated Successfully!')
             return HttpResponseRedirect('/all_items')
     else:
         form = ItemForm(instance=item)
     context = {'form': form}
     return render(request, 'assetmaster/update_item.html', context)
 
-def removeItemView(request,id):
+def remove_item_view(request, id):
+    """
+    This function fetch all the data from Item table.
 
-    item_to_be_removed = Item.objects.get(item_id=id)
-    item_to_be_removed.delete()
-    messages.success(request, 'Items deleted Sucessfully!')
+    Parameters:
+    arg1 (): HttpRequest Object
+    arg2 (): uuid of Item object
+
+    Returns:
+    msg: 'Items deleted Successfully!'
+
+    """
+    if id:
+        item_to_be_removed = Item.objects.get(item_id=id)
+        item_to_be_removed.delete()
+        messages.success(request, 'Items deleted Successfully!')
+
     return redirect('/all_items')
 
 
 def export_items_csv(request):
+    """
+        This function return a CSV file of all objects of Item table.
 
+        Parameters:
+        arg1 (): HttpRequest Object
+
+        Returns:
+        file: .csv
+
+        """
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename= Items_list'+ \
-        str(datetime.datetime.now())+'.csv'
+    response['Content-Disposition'] = 'attachment; filename= Items_list' + \
+        str(datetime.datetime.now()) + '.csv'
 
     writer = csv.writer(response)
-    writer.writerow(['item_name','asset_type','is_active','created_at','updated_at'])
+    writer.writerow(['item_name', 'asset_type', 'is_active', 'created_at', 'updated_at'])
     items = Item.objects.all()
     for item in items:
-        writer.writerow([item.item_name,item.asset_type,item.is_active,item.created_at,item.updated_at])
+        writer.writerow([item.item_name, item.asset_type, item.is_active, item.created_at, item.updated_at])
 
     return response
 
-def pie_chart_View(request):
 
+def pie_chart_view(request):
+    """
+        This api returns a data of number of assets as per asset type.
+
+        Parameters:
+        arg1 (): HttpRequest Object
+
+        Returns:
+        json: graph label and data
+
+        """
     pie_label = []
-    pldata = AssetType.objects.all().order_by('asset_type')
-    for asset in pldata:
+    queryset = AssetType.objects.all().order_by('asset_type')
+    for asset in queryset:
         pie_label.append(asset.asset_type)
     pie_data = []
-    pdata = Item.objects.values('asset_type').order_by('asset_type').annotate(Count('asset_type'))
-    print(pdata)
-    for asset_count in pdata:
+    data = Item.objects.values('asset_type').order_by('asset_type').annotate(Count('asset_type'))
+    for asset_count in data:
         pie_data.append(asset_count['asset_type__count'])
-    print(pie_label)
-    print(pie_data)
-    data = {'title':'Count of Asset',"pie_label": pie_label,"pie_data": pie_data}
-    return JsonResponse(data)
-
-def bar_chart_Data(request):
-
-
-    bar_label = ['Active Assets','Inactive Assets']
-    bar_data = []
-    bdata = Item.objects.values('is_active').order_by().annotate(Count('item_id'))
-    for count in bdata:
-        bar_data.append(count['item_id__count'])
-    ybar_label = []
-
-    print(bar_label)
-    print(bar_data)
-
-    for i in range(0,max(bar_data) + 10, 2):
-        ybar_label.append(i)
-    print(ybar_label)
-    data = {'title':'Asset Status',"bar_label": bar_label,"bar_data": bar_data}
+    data = {'title': 'Count of Asset', "pie_label": pie_label, "pie_data": pie_data}
     return JsonResponse(data)
 
 
+def bar_chart_view(request):
+    """
+        This api returns a data of number of active assets & inactive assets..
 
+        Parameters:
+        arg1 (): HttpRequest Object
 
+        Returns:
+        json: graph labels and data
 
+        """
+    Response_data = []
+    temp_dict = {}
 
-
-
-
-
-    """Summary or Description of the Function
-
-    Parameters:
-    argument1 (int): Description of arg1
-
-    Returns:
-    int:Returning value
-
-   """
+    bar_label = ['Active Assets', 'Inactive Assets']
+    item_detail = Item.objects.values('is_active').order_by().annotate(Count('item_id'))
+    # for count in bdata:
+    #     bar_data.append(count['item_id__count'])
+    print(item_detail)
+    for i in range(len(bar_label)):
+         temp_dict['label']=bar_label[i]
+         temp_dict['Count']=item_detail[i]['item_id__count']
+         Response_data.append(temp_dict)
+         temp_dict = {}
+    print(Response_data)
+    return JsonResponse(Response_data, safe=False)

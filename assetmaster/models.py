@@ -3,9 +3,9 @@ import uuid
 # Create your models here.
 
 class AssetType(models.Model):
-    asset_type_id = models.IntegerField(primary_key=True)
     asset_type = models.TextField(blank=True)
     asset_description = models.TextField(blank=True)
+    is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -13,9 +13,9 @@ class AssetType(models.Model):
         return self.asset_type
 #
 class Item(models.Model):
-    item_id = models.UUIDField(primary_key = True,default = uuid.uuid4,editable = False)
+    item_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     item_name = models.CharField(max_length=200)
-    asset_type = models.ForeignKey(AssetType, on_delete=models.CASCADE)
+    asset_type = models.ForeignKey(AssetType, on_delete=models.CASCADE, related_name='asset')
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

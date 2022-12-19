@@ -39,7 +39,7 @@
       <td>{{i.is_active}}</td>
       <td>{{i.created_at}}</td>
       <td>{{i.updated_at}}</td>
-        <td><a href="/update_item/{{i.item_id}}"> Update</a> <a href="/remove_item/{{i.item_id}}">Delete</a></td>
+        <td><a href="/update_item/{{i.item_id}}" onclick="return confirm('Are you sure to update?')">Update</a> <a href="/remove_item/{{i.item_id}}" onclick="return confirm('Are you sure to delete?')">Delete</a></td>
     </tr>
   </body>
          {% endfor %}

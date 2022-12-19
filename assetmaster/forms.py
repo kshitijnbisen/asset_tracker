@@ -1,5 +1,5 @@
 from django import forms
-from .models import AssetType,Item
+from .models import AssetType, Item
 
 class AssetTypeForm(forms.ModelForm):
     class Meta:
