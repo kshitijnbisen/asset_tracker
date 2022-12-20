@@ -34,4 +34,5 @@ urlpatterns = [
     path('pie_data/', views.pie_chart_view, name='pie_data'),
     path('bar_data/', views.bar_chart_view, name='bar_data'),
     path('export_items_csv/', views.export_items_csv, name='export-csv'),
+    path('pie/', views.pie_chart_view, name='pie'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

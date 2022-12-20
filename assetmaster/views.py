@@ -17,7 +17,22 @@ def dashboard_view(request):
     """
     It renders a index page
     """
-    return render(request,'assetmaster/dashboard1.html')
+    bar_label = ['Active Assets', 'Inactive Assets']
+    item_detail = Item.objects.values('is_active').order_by().annotate(Count('item_id'))
+    bar_data = []
+    for count in item_detail:
+        bar_data.append(count['item_id__count'])
+
+    pie_label = []
+    queryset = AssetType.objects.all().order_by('asset_type')
+    for asset in queryset:
+        pie_label.append(asset.asset_type)
+    pie_data = []
+    data = Item.objects.values('asset_type').order_by('asset_type').annotate(Count('asset_type'))
+    for asset_count in data:
+        pie_data.append(asset_count['asset_type__count'])
+    context = {'bar_label': bar_label, 'bar_data': bar_data, "pie_label": pie_label, "pie_data": pie_data}
+    return render(request, 'assetmaster/dashboard1.html', context)
 
 def all_assettype_view(request):
     """
@@ -115,7 +130,7 @@ def all_items_view(request):
 
     """
     items = Item.objects.all().order_by('-updated_at')
-    paginator = Paginator(items, 2, orphans=1)
+    paginator = Paginator(items, 3, orphans=1)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {'page_obj': page_obj}
@@ -263,3 +278,15 @@ def bar_chart_view(request):
          temp_dict = {}
     print(Response_data)
     return JsonResponse(Response_data, safe=False)
+
+def pie_chart_view(request):
+    pie_label = []
+    queryset = AssetType.objects.all().order_by('asset_type')
+    for asset in queryset:
+        pie_label.append(asset.asset_type)
+    pie_data = []
+    data = Item.objects.values('asset_type').order_by('asset_type').annotate(Count('asset_type'))
+    for asset_count in data:
+        pie_data.append(asset_count['asset_type__count'])
+    context = {"pie_label": pie_label, "pie_data": pie_data}
+    return render(request,'assetmaster/pie_chart.html')
