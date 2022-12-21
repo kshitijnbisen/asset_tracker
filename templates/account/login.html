@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Log in</title>
+  <title>Log in</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -20,7 +20,6 @@
   <div class="login-logo">
     <a href="../../index2.html"><b>Admin</b>LTE</a>
   </div>
-  <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
@@ -30,27 +29,47 @@
     <p {% if message.tags %} class="alert alert-{{message.tags}} mb-5" {% endif %}>{{message}}</p>
     {% endfor %}
     {% endif %}
-      <form action="" method="post" >
-            {% csrf_token %}
-    {% for fm in form %}
-    {{fm.label_tag}} {{fm}}
-    <br>
-    <br>
-    {{fm.errors|striptags}}
-    {% endfor %}
-          <div class="col-8">
-            <div class="icheck-primary">
-              <input type="checkbox" id="remember">
-              <label for="remember">
-                Remember Me
-              </label>
+<!--      <form action="" method="post" >-->
+<!--            {% csrf_token %}-->
+<!--    {% for fm in form %}-->
+<!--    {{fm.label_tag}} {{fm}}-->
+<!--    <br>-->
+<!--    <br>-->
+<!--    {{fm.errors|striptags}}-->
+<!--    {% endfor %}-->
+   <!-- /.login-logo -->
+<!--  <div class="card">-->
+<!--    <div class="card-body login-card-body">-->
+<!--      <p class="login-box-msg">Sign in to start your session</p>-->
+
+  <form action="" method="post">
+      {% csrf_token %}
+             <div class="input-group mb-3">
+  <label for="email">Email</label>
+  <input type="email" id="email" class="form-control" placeholder="Email" name="email"> <br>
+           <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
             </div>
-                <input type="submit" value="Submit" >
-                  {% if form.non_field_errors %}
-    {% for error in form.non_field_errors %}
-    <p class="alert alert-danger my-3">{{error}}</p>
-    {% endfor %}
-    {% endif %}
+          </div>
+        </div>
+              <div class="input-group mb-3">
+  <label for="password">Password</label>
+  <input type="password" id="password" class="form-control" placeholder="Password" name="password"><br>
+                     <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+  <input type="checkbox" value="lsRememberMe" id="rememberMe"> <label for="rememberMe">Remember me</label><br>
+  <input type="submit" value="Login" onclick="lsRememberMe()">
+<!--</form>-->
+<!--                  {% if form.non_field_errors %}-->
+<!--    {% for error in form.non_field_errors %}-->
+<!--    <p class="alert alert-danger my-3">{{error}}</p>-->
+<!--    {% endfor %}-->
+<!--    {% endif %}-->
 <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </form>
@@ -80,6 +99,33 @@
 
 <!-- jQuery -->
 <script src="/static/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript">
+const rmCheck = document.getElementById("rememberMe"),
+    emailInput = document.getElementById("email");
+    passwordInput = document.getElementById("password");
+
+if (localStorage.checkbox && localStorage.checkbox !== "") {
+  rmCheck.setAttribute("checked", "checked");
+  emailInput.value = localStorage.username;
+  passwordInput.value = localStorage.password;
+} else {
+  rmCheck.removeAttribute("checked");
+  emailInput.value = "";
+}
+
+function lsRememberMe() {
+  if (rmCheck.checked && emailInput.value !== "") {
+    localStorage.username = emailInput.value;
+    localStorage.checkbox = rmCheck.value;
+    localStorage.password = passwordInput.value;
+  } else {
+    localStorage.username = "";
+    localStorage.checkbox = "";
+    localStorage.password = "";
+  }
+}
+</script>
+
 <!-- Bootstrap 4 -->
 <script src="/static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->

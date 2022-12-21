@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth import logout
 from django.contrib import messages
-# from django.contrib.auth.forms import AuthenticationForm
 from .forms import CustomAuthenticationForm, CustomUserCreationForm
 # from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
@@ -13,9 +12,7 @@ User = get_user_model()
 def admin_login(request):
     """Authenticate against the settings ADMIN_LOGIN and ADMIN_PASSWORD.
     Use the login email and a hash of the password."""
-    form = CustomAuthenticationForm
     if request.method == 'POST':
-        form = CustomAuthenticationForm(request.POST)
         email = request.POST.get('email')
         password = request.POST.get('password')
         if email and password:
@@ -27,8 +24,7 @@ def admin_login(request):
                 return redirect('/')
             else:
                 messages.error(request, 'Incorrect Username or Password')
-    context = {'form': form}
-    return render(request, 'account/login.html', context)
+    return render(request, 'account/login.html')
 
 
 def logout_view(request):

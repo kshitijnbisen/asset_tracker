@@ -13,6 +13,6 @@ class ItemAdmin(admin.ModelAdmin):
 admin.site.register(Item,ItemAdmin)
 
 class AssetImageAdmin(admin.ModelAdmin):
-    list_display = ['name','item_name','item_image']
+    list_display = ['name', 'item_id', 'item_image']
 
 admin.site.register(AssetImage,AssetImageAdmin)

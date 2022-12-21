@@ -3,7 +3,7 @@ import uuid
 # Create your models here.
 
 class AssetType(models.Model):
-    asset_type = models.TextField(blank=True)
+    asset_type = models.TextField()
     asset_description = models.TextField(blank=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -26,8 +26,8 @@ class Item(models.Model):
 
 class AssetImage(models.Model):
     name = models.CharField(max_length=255)
-    item_name = models.ForeignKey(Item, on_delete=models.CASCADE)
+    item_id = models.ForeignKey(Item, on_delete=models.CASCADE)
     item_image = models.ImageField(upload_to='images/')
 
     def __str__(self):
-        return self.item_image.url
+        return self.name

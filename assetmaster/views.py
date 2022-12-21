@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from .models import AssetType, Item
+from .models import AssetType, Item, AssetImage
 from .forms import AssetTypeForm, ItemForm
 from django.core.paginator import Paginator
 from django.db.models import Count
@@ -204,6 +204,12 @@ def remove_item_view(request, id):
 
     return redirect('/all_items')
 
+def show_images(request, id):
+    if id:
+        images = AssetImage.objects.filter(item_id=id)
+        print(images)
+        context = {'images': images}
+        return render(request, 'assetmaster/item_images.html', context)
 
 def export_items_csv(request):
     """
@@ -279,14 +285,4 @@ def bar_chart_view(request):
     print(Response_data)
     return JsonResponse(Response_data, safe=False)
 
-def pie_chart_view(request):
-    pie_label = []
-    queryset = AssetType.objects.all().order_by('asset_type')
-    for asset in queryset:
-        pie_label.append(asset.asset_type)
-    pie_data = []
-    data = Item.objects.values('asset_type').order_by('asset_type').annotate(Count('asset_type'))
-    for asset_count in data:
-        pie_data.append(asset_count['asset_type__count'])
-    context = {"pie_label": pie_label, "pie_data": pie_data}
-    return render(request,'assetmaster/pie_chart.html')
+

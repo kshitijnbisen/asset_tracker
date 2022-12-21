@@ -28,6 +28,7 @@
       <th scope="col">updated_at</th>
       <th scope="col"></th>
       <th scope="col"></th>
+      <th scope="col">Images</th>
     </tr>
   </thead>
          {% for i in page_obj %}
@@ -39,7 +40,9 @@
       <td>{{i.is_active}}</td>
       <td>{{i.created_at}}</td>
       <td>{{i.updated_at}}</td>
+      <td>{{i.id}}</td>
         <td><a href="/update_item/{{i.item_id}}" onclick="return confirm('Are you sure to update?')">Update</a> <a href="/remove_item/{{i.item_id}}" onclick="return confirm('Are you sure to delete?')">Delete</a></td>
+        <td><a href="/item_images/{{i.item_id}}" >Images</a></td>
     </tr>
   </body>
          {% endfor %}
