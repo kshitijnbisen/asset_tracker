@@ -1,5 +1,5 @@
-{% extends 'assetmaster/base.html' %}
-{% block content %}
+{% extends 'assetmaster/base1.html' %}
+{% block content1 %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +30,7 @@
 
 
     {%csrf_token%}
-<input type="submit" class="btn btn-success btn-lg" value="Update Record">
+<input type="submit" class="btn btn-success btn-lg" value="Update Record" onclick="return confirm('Are you sure to update?')">
 </form>
 </div>
 

@@ -1,5 +1,5 @@
-{% extends 'assetmaster/base.html' %}
-{% block content %}
+{% extends 'assetmaster/base1.html' %}
+{% block content1 %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,9 +9,12 @@
 </head>
 <body>
 {% for img in images %}
-  <div class="col-sm-6 text-center align-self-center">
+<!--  <div class="col-sm-6 text-center align-self-center">-->
+  <div class="container">
 <!--   <img src="" alt="" class="img-fluid img-thumbnail">-->
       <img src="{{img.item_image.url}}" alt="image" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <br>
+      <br>
   </div>
 {% endfor %}
 

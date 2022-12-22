@@ -17,7 +17,6 @@ def admin_login(request):
         password = request.POST.get('password')
         if email and password:
             user_obj = authenticate(email=email, password=password)
-            print(user_obj)
             if user_obj is not None and user_obj.is_admin:  # and user_obj.is_superuser
                 login(request, user_obj)
                 messages.info(request, f"You are now logged in as {email}.")

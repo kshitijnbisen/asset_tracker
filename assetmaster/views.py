@@ -32,7 +32,7 @@ def dashboard_view(request):
     for asset_count in data:
         pie_data.append(asset_count['asset_type__count'])
     context = {'bar_label': bar_label, 'bar_data': bar_data, "pie_label": pie_label, "pie_data": pie_data}
-    return render(request, 'assetmaster/dashboard1.html', context)
+    return render(request, 'assetmaster/dashboard2.html', context)
 
 def all_assettype_view(request):
     """
@@ -72,8 +72,8 @@ def add_assettype_view(request):
             return redirect('/all_category')
         else:
             messages.error(request, 'Something went wrong!')
-            return render(request,'assetmaster/add_assettype.html',my_dict)
-    return render(request,'assetmaster/add_assettype.html',my_dict)
+            return render(request,'assetmaster/add_assettype.html', my_dict)
+    return render(request,'assetmaster/add_assettype.html', my_dict)
 
 
 def update_assettype_view(request, id):
@@ -130,7 +130,7 @@ def all_items_view(request):
 
     """
     items = Item.objects.all().order_by('-updated_at')
-    paginator = Paginator(items, 3, orphans=1)
+    paginator = Paginator(items, 5, orphans=1)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {'page_obj': page_obj}

@@ -1,21 +1,47 @@
-{% extends 'assetmaster/base.html' %}
-{% block content %}
-    {% if messages %}
-   {% for message in messages %}
-    <p {% if message.tags %} class="alert alert-{{message.tags}} mb-5" {% endif %}>{{message}}</p>
-    {% endfor %}
-    {% endif %}
+<!--{% extends 'assetmaster/base.html' %}-->
+<!--{% block content %}-->
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>User Registration</title>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'css/all.min.css'%}">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="{% static 'css/icheck-bootstrap.min.css'%}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'css/adminlte.min.css'%}">
+
+    <!-- jQuery -->
+    <script src="{% static 'plugins/jquery/jquery.min.js'%}"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+    <!-- AdminLTE App -->
+    <script src="{% static 'dist/js/adminlte.min.js'%}"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </head>
-<body>
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo">
+    <a href="../../index2.html"><b>Asset-</b>Tracker</a>
+  </div>
+    {% if messages %}
+   {% for message in messages %}
+    <p {% if message.tags %} class="alert alert-{{message.tags}} mb-5" {% endif %}>{{message}}</p>
+    {% endfor %}
+    {% endif %}
+
+      <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">Sign up to start your session</p>
+<!--<div class="container">-->
 <form action="" method="post" >
             {% csrf_token %}
     {% for fm in form %}
-    {{fm.label_tag}} {{fm}}
+    {{fm.label_tag}} {{fm}}<br>
     <br>{{fm.errors|striptags}}
     {% endfor %}
         <input type="submit" value="Submit" >
@@ -25,7 +51,7 @@
     {% endfor %}
     {% endif %}
 </form>
-{% endblock %}
+</div>
 </body>
-
+<!--{% endblock %}-->
 </html>

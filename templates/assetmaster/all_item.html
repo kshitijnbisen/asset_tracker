@@ -1,5 +1,5 @@
-{% extends 'assetmaster/base.html' %}
-{% block content %}
+{% extends 'assetmaster/base1.html' %}
+{% block content1 %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,7 +41,7 @@
       <td>{{i.created_at}}</td>
       <td>{{i.updated_at}}</td>
       <td>{{i.id}}</td>
-        <td><a href="/update_item/{{i.item_id}}" onclick="return confirm('Are you sure to update?')">Update</a> <a href="/remove_item/{{i.item_id}}" onclick="return confirm('Are you sure to delete?')">Delete</a></td>
+        <td><a href="/update_item/{{i.item_id}}">Update</a> <a href="/remove_item/{{i.item_id}}" onclick="return confirm('Are you sure to delete?')">Delete</a></td>
         <td><a href="/item_images/{{i.item_id}}" >Images</a></td>
     </tr>
   </body>
@@ -49,7 +49,7 @@
 </table>
   </div>
 
-<div class="pagination">
+<div class="container">
 
     <span class="step-links">
         {% if page_obj.has_previous %}
@@ -92,7 +92,6 @@
         {% endblock %}
 
 </div>
-
 
 
 </html>

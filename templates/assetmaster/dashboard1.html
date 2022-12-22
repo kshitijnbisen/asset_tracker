@@ -1,4 +1,4 @@
-<!--{% load static %}-->
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -164,11 +164,11 @@
 
     <!-- Main content -->
 
-          <div class="col-lg-6">
+          <div class="col-lg-5">
             <div class="card">
               <div class="card-header border-0">
                 <div class="d-flex justify-content-between">
-                  <h3 class="card-title">Assets</h3>
+                  <h3 class="card-title">Active & Inactive Assets</h3>
                   <a href="#">View Report</a>
                 </div>
               </div>
@@ -186,7 +186,6 @@
                   </p>
                 </div>
                 <!-- /.d-flex -->
-
 
 
 
@@ -218,7 +217,24 @@
     }
   });
 </script>
- <div> <canvas id="myChart1" style="display: block; box-sizing: border-box; height: 425px; width: 850px;" width="761" height="380">></canvas>
+
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+          <div class="col-lg-7">
+            <div class="card">
+              <div class="card-header border-0">
+                <div class="d-flex justify-content-between">
+                  <h3 class="card-title">Count of AssetsType</h3>
+                  <a href="#">View Report</a>
+                </div>
+              </div>
+
+<!-- <div> <canvas id="myChart1" style="display: block; box-sizing: border-box; height: 425px; width: 850px;" width="761" height="380">></canvas>-->
+ <div class="position-relative mb-6"> <canvas id="myChart1" >></canvas>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -249,6 +265,7 @@
 
 
 
+
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
@@ -264,6 +281,12 @@
     </div>
   </footer>
 </div>
+
+
+
+
+
+
 
 
 <!-- ./wrapper -->

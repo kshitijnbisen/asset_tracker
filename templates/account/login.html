@@ -6,29 +6,59 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Log in</title>
 
-  <!-- Google Font: Source Sans Pro -->
+<!--  &lt;!&ndash; Google Font: Source Sans Pro &ndash;&gt;-->
+<!--  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">-->
+<!--  &lt;!&ndash; Font Awesome &ndash;&gt;-->
+<!--  <link rel="stylesheet" href="/static/css/all.min.css">-->
+<!--  &lt;!&ndash; icheck bootstrap &ndash;&gt;-->
+<!--  <link rel="stylesheet" href="/static/css/icheck-bootstrap.min.css">-->
+<!--  &lt;!&ndash; Theme style &ndash;&gt;-->
+<!--  <link rel="stylesheet" href="/static/css/adminlte.min.css">-->
+
+<!--    &lt;!&ndash; jQuery &ndash;&gt;-->
+<!--    <script src="/static/plugins/jquery/jquery.min.js"></script>-->
+<!--    &lt;!&ndash; Bootstrap 4 &ndash;&gt;-->
+<!--    <script src="/static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>-->
+<!--    &lt;!&ndash; AdminLTE App &ndash;&gt;-->
+<!--    <script src="/static/dist/js/adminlte.min.js"></script>-->
+
+
+
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="/static/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'css/all.min.css'%}">
   <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="/static/css/icheck-bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'css/icheck-bootstrap.min.css'%}">
   <!-- Theme style -->
-  <link rel="stylesheet" href="/static/css/adminlte.min.css">
+  <link rel="stylesheet" href="{% static 'css/adminlte.min.css'%}">
+
+    <!-- jQuery -->
+    <script src="{% static 'plugins/jquery/jquery.min.js'%}"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+    <!-- AdminLTE App -->
+    <script src="{% static 'dist/js/adminlte.min.js'%}"></script>
+
+
+
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
     <a href="../../index2.html"><b>Admin</b>LTE</a>
   </div>
-  <div class="card">
-    <div class="card-body login-card-body">
-      <p class="login-box-msg">Sign in to start your session</p>
 
-    {% if messages %}
+        {% if messages %}
    {% for message in messages %}
     <p {% if message.tags %} class="alert alert-{{message.tags}} mb-5" {% endif %}>{{message}}</p>
     {% endfor %}
     {% endif %}
+
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">Sign in to start your session</p>
+
+
 <!--      <form action="" method="post" >-->
 <!--            {% csrf_token %}-->
 <!--    {% for fm in form %}-->
@@ -45,7 +75,6 @@
   <form action="" method="post">
       {% csrf_token %}
              <div class="input-group mb-3">
-  <label for="email">Email</label>
   <input type="email" id="email" class="form-control" placeholder="Email" name="email"> <br>
            <div class="input-group-append">
             <div class="input-group-text">
@@ -54,7 +83,6 @@
           </div>
         </div>
               <div class="input-group mb-3">
-  <label for="password">Password</label>
   <input type="password" id="password" class="form-control" placeholder="Password" name="password"><br>
                      <div class="input-group-append">
             <div class="input-group-text">
@@ -98,7 +126,7 @@
 <!-- /.login-box -->
 
 <!-- jQuery -->
-<script src="/static/plugins/jquery/jquery.min.js"></script>
+<!--<script src="/static/plugins/jquery/jquery.min.js"></script>-->
 <script type="text/javascript">
 const rmCheck = document.getElementById("rememberMe"),
     emailInput = document.getElementById("email");
@@ -126,9 +154,6 @@ function lsRememberMe() {
 }
 </script>
 
-<!-- Bootstrap 4 -->
-<script src="/static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="/static/dist/js/adminlte.min.js"></script>
+
 </body>
 </html>
