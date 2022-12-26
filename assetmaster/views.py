@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from .models import AssetType, Item, AssetImage
-from .forms import AssetTypeForm, ItemForm
+from .forms import AssetTypeForm, ItemForm, AssetImageForm
 from django.core.paginator import Paginator
 from django.db.models import Count
 from django.http import HttpResponse, JsonResponse
@@ -149,11 +149,17 @@ def add_item_view(request):
 
     """
     form = ItemForm()
-    my_dict = {'form': form}
+    image_form = AssetImageForm()
+    my_dict = {'form': form, 'image_form': image_form}
     if request.method == 'POST':
+        files = request.FILES.getlist('images')
         form = ItemForm(request.POST)
         if form.is_valid():
-            form.save(commit=True)
+            item = form.save(commit=True)
+            print(item.item_id)
+            for file in files:
+                print(file)
+                AssetImage.objects.create(item_id=item, item_image=file)
             messages.success(request, 'Item Added Successfully!')
             return redirect('/all_items')
         else:

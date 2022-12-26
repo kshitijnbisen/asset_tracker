@@ -1,5 +1,5 @@
 from django import forms
-from .models import AssetType, Item
+from .models import AssetType, Item, AssetImage
 
 class AssetTypeForm(forms.ModelForm):
     class Meta:
@@ -11,3 +11,11 @@ class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
         fields = "__all__"
+
+
+class AssetImageForm(forms.ModelForm):
+    images = forms.ImageField(widget=forms.FileInput(attrs={"class": "form-control", "multiple": True}))
+
+    class Meta:
+        model = AssetImage
+        fields = ['images']
