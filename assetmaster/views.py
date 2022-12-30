@@ -32,7 +32,7 @@ def dashboard_view(request):
     for asset_count in data:
         pie_data.append(asset_count['asset_type__count'])
     context = {'bar_label': bar_label, 'bar_data': bar_data, "pie_label": pie_label, "pie_data": pie_data}
-    return render(request, 'assetmaster/dashboard2.html', context)
+    return render(request, 'assetmaster/dashboard3.html', context)
 
 def all_assettype_view(request):
     """
@@ -180,15 +180,21 @@ def update_item_view(request, id):
 
     """
     item = Item.objects.get(item_id=id)
+
     if request.method == 'POST':
         form = ItemForm(request.POST, instance=item)
+        files = request.FILES.getlist('images')
         if form.is_valid():
-            form.save()
+            # form.save()
+            item = form.save(commit=True)
+            for file in files:
+                AssetImage.objects.create(item_id=item, item_image=file)
             messages.success(request, 'Item updated Successfully!')
             return HttpResponseRedirect('/all_items')
     else:
         form = ItemForm(instance=item)
-    context = {'form': form}
+        image_form = AssetImageForm(instance=item)
+    context = {'form': form, 'image_form': image_form}
     return render(request, 'assetmaster/update_item.html', context)
 
 def remove_item_view(request, id):
@@ -213,9 +219,27 @@ def remove_item_view(request, id):
 def show_images(request, id):
     if id:
         images = AssetImage.objects.filter(item_id=id)
-        print(images)
         context = {'images': images}
         return render(request, 'assetmaster/item_images.html', context)
+
+def delete_images(request, image_id):
+    """
+    This function fetch all the data from Item table.
+
+    Parameters:
+    arg1 (): HttpRequest Object
+    arg2 (): uuid of Item object
+
+    Returns:
+    msg: 'Image deleted Successfully!'
+
+    """
+    if image_id:
+        img_to_be_removed = AssetImage.objects.get(image_id=image_id)
+        img_to_be_removed.delete()
+        messages.success(request, 'Image deleted Successfully!')
+
+    return redirect('/all_items')
 
 def export_items_csv(request):
     """

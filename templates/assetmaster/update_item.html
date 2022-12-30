@@ -8,33 +8,76 @@
 
 </head>
 <body>
-{% block base_block %}
-<h1 align="center">Item update form</h1>
-<br>
-<div class="container" align="center">
-<form class="" method="post">
 
-<!--    AssetType asset_type_id :<input type="text" name="roll" value="{{data.asset_type_id}}">-->
-<!--    <p></p>-->
-<!--    AssetType asset_type :<input type="text" name="name" value="{{data.asset_type}}">-->
-<!--    <p></p>-->
-<!--    AssetType asset_description :<input type="text" name="address" value="{{data.asset_description}}">-->
-<!--    <p></p>-->
-<!--    AssetType created_at :<input type="text" name="email" value="{{data.created_at}}">-->
-<!--    <p></p>-->
-    {{form.as_p}}
+<!--<h1 align="center">Item update form</h1>-->
+<!--<br>-->
+<!--<div class="container" align="center">-->
+<!--<form class="" method="post">-->
 
-<!--    AssetType updated_at :<input type="text" name="record" value="{{data.updated_at}}">  <! –– feed again with proper formate ––>-->
-<!--    <p></p>-->
-<!--    student date :<input type="text" name="date" value="{{data.date}}"> # it is removed because its autoformate so will create problem-->
+<!--&lt;!&ndash;    AssetType asset_type_id :<input type="text" name="roll" value="{{data.asset_type_id}}">&ndash;&gt;-->
+<!--&lt;!&ndash;    <p></p>&ndash;&gt;-->
+<!--&lt;!&ndash;    AssetType asset_type :<input type="text" name="name" value="{{data.asset_type}}">&ndash;&gt;-->
+<!--&lt;!&ndash;    <p></p>&ndash;&gt;-->
+<!--&lt;!&ndash;    AssetType asset_description :<input type="text" name="address" value="{{data.asset_description}}">&ndash;&gt;-->
+<!--&lt;!&ndash;    <p></p>&ndash;&gt;-->
+<!--&lt;!&ndash;    AssetType created_at :<input type="text" name="email" value="{{data.created_at}}">&ndash;&gt;-->
+<!--&lt;!&ndash;    <p></p>&ndash;&gt;-->
+<!--    {{form.as_p}}-->
+
+<!--&lt;!&ndash;    AssetType updated_at :<input type="text" name="record" value="{{data.updated_at}}">  <! –– feed again with proper formate ––>&ndash;&gt;-->
+<!--&lt;!&ndash;    <p></p>&ndash;&gt;-->
+<!--&lt;!&ndash;    student date :<input type="text" name="date" value="{{data.date}}"> # it is removed because its autoformate so will create problem&ndash;&gt;-->
 
 
-    {%csrf_token%}
+<!--    {%csrf_token%}-->
+<!--<input type="submit" class="btn btn-success btn-lg" value="Update Record" onclick="return confirm('Are you sure to update?')">-->
+<!--</form>-->
+<!--</div>-->
+
+
+  <div class="container">
+          <h1>Update an Item!</h1>
+      <hr>
+
+<form action="" method='POST' enctype="multipart/form-data">
+<h4>Update Items</h4>
+{% csrf_token %}
+
+<div class="row mb-3">
+<!--    <label class="col-sm-2 col-form-label">{{form.item_name.label}}</label>-->
+    <label class="col-sm-2 col-form-label">'item_name'</label>
+    <div class="col-sm-10">
+      {{form.item_name}}
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <label class="col-sm-2 col-form-label">{{form.asset_type.label}}</label>
+    <div class="col-sm-10">
+      {{form.asset_type}}
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <label class="col-sm-2 col-form-label">{{form.is_active.label}}</label>
+    <div class="col-sm-10">
+      {{form.is_active}}
+    </div>
+  </div>
+
+
+  <div class="row mb-3">
+    <label class="col-sm-2 col-form-label">{{image_form.images.label}}</label>
+    <div class="col-sm-10">
+      {{image_form.images}}
+    </div>
+  </div>
+
 <input type="submit" class="btn btn-success btn-lg" value="Update Record" onclick="return confirm('Are you sure to update?')">
-</form>
-</div>
+<!--  <button class="btn btn-primary" onclick="return confirm('Are you sure to update?')>Add</button>-->
 
-{% endblock %}
-{% endblock %}
+</form>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
+{% endblock %}
 </html>

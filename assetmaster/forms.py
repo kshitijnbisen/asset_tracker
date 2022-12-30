@@ -14,7 +14,7 @@ class ItemForm(forms.ModelForm):
 
 
 class AssetImageForm(forms.ModelForm):
-    images = forms.ImageField(widget=forms.FileInput(attrs={"class": "form-control", "multiple": True}))
+    images = forms.ImageField(required=False,widget=forms.FileInput(attrs={"class": "form-control", "multiple": True}))
 
     class Meta:
         model = AssetImage

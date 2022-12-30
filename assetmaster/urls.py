@@ -32,6 +32,7 @@ urlpatterns = [
     path('update_item/<id>/', views.update_item_view, name='update_item'),
     path('remove_item/<id>/', views.remove_item_view, name='remove_item'),
     path('item_images/<id>/', views.show_images, name='item_images'),
+    path('delete_image/<int:image_id>/', views.delete_images, name='delete_image'),
     path('pie_data/', views.pie_chart_view, name='pie_data'),
     path('bar_data/', views.bar_chart_view, name='bar_data'),
     path('export_items_csv/', views.export_items_csv, name='export-csv'),

@@ -26,6 +26,7 @@ class Item(models.Model):
         return self.item_name
 
 class AssetImage(models.Model):
+    image_id = models.AutoField(primary_key=True)
     item_id = models.ForeignKey(Item, on_delete=models.CASCADE)
     item_image = models.ImageField(upload_to='images/')
 
